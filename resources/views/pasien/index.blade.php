@@ -31,7 +31,7 @@
     <!-- Default box -->
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Pasien</h3>
+        <h3 class="card-title">Edit Data Pasien</h3>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -42,11 +42,7 @@
                 <th>Id</th>
                 <th>Kode</th>
                 <th>Nama</th>
-                <th>Tempat Lahir</th>
-                <th>Tanggal Lahir</th>
                 <th>Gender</th>
-                <th>Email</th>
-                <th>Alamat</th>
                 <th>Kelurahan</th>
                 <th>Action</th>
               </tr>
@@ -58,22 +54,22 @@
                 <td>{{ $pasien->id }}</td>
                 <td>{{ $pasien->kode }}</td>
                 <td>{{ $pasien->nama }}</td>
-                <td>{{ $pasien->tmp_lahir }}</td>
-                <td>{{ $pasien->tgl_lahir }}</td>
                 <td>{{ $pasien->gender }}</td>
-                <td>{{ $pasien->email }}</td>
-                <td>{{ $pasien->alamat }}</td>
                 <td>{{ $pasien->nama_kelurahan }}</td>
                 <td>
-                  <a href=""><button class="btn-success">Detail</button></a>
-                  <a href=""><button class="btn-warning">Edit</button></a> 
-                  <a href=""><button class="btn-danger">Hapus</button></a></td>
+                  <a href="{{url ('pasien/detail/'. $pasien->id)}}">
+                    <button class="btn btn-success">Detail</button></a>
+                  <a href="{{url ('pasien/edit/'. $pasien->id)}}">
+                    <button class="btn btn-warning">Edit</button></a> 
+                  <a href="{{url ('pasien/delete/'. $pasien->id)}}">
+                    <button class="btn btn-danger">Hapus</button></a></td>
               </tr>
               @endforeach
             </tbody>
           </table>
         </div>
-        <div class="btn-group-vertical">
+        <!-- buka modal -->
+        <div class="btn-group-vertical"> 
           <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#inputModal">Tambah</button>
           <!-- Modal -->
           <div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="inputModalLabel" aria-hidden="true">
@@ -140,6 +136,7 @@
             </div>
           </div>
         </div>
+        <!-- tutup modal -->
       </div>
       <!-- /.card-body -->
       <div class="card-footer">

@@ -56,7 +56,13 @@ class PasienController extends Controller
      */
     public function show(string $id)
     {
-        //
+       
+        $list= DB::table('pasien')->join('kelurahan','pasien.kelurahan_id','=','kelurahan_id')
+        ->select('pasien.*','kelurahan.nama as nama_kelurahan')
+        ->get();
+        $list_pasien = $list->where('id',$id);
+        return view('pasien.detail', compact('list_pasien'));
+        
     }
 
     /**
@@ -64,15 +70,28 @@ class PasienController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $pasien = DB::table('pasien')->where('id',$id)->get();
+        $kelurahans = DB::table('kelurahan')->get();
+        return view('pasien.edit', compact('pasien','kelurahans'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $pasien = Pasien::find($request->id);
+        $pasien->kode = $request->kode;
+        $pasien->nama = $request->nama;
+        $pasien->tmp_lahir = $request->tmp_lahir;
+        $pasien->tgl_lahir = $request->tgl_lahir;
+        $pasien->gender = $request->gender;
+        $pasien->email = $request->email;
+        $pasien->alamat = $request->alamat;
+        $pasien->kelurahan_id = $request->kelurahan_id;
+        $pasien->save();
+        return redirect('pasien');
     }
 
     /**
@@ -80,6 +99,8 @@ class PasienController extends Controller
      */
     public function destroy(string $id)
     {
-        // kasih perintah hapus data
+        $list = DB::table('pasien')->where('id',$id)->delete();
+        return redirect('pasien');
+
     }
 }

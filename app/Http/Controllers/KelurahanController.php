@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kelurahan; // panggil file modelsKelurahan
+use App\Models\Kelurahan; //tambahin ini
 use Illuminate\Http\Request;
 
 class KelurahanController extends Controller
 {
     /**
-     * Display a listing of the resource.a
+     * Display a listing of the resource.
      */
     public function index()
     {
-        $list_kelurahan = Kelurahan::all();
-    // buat turunan model Kelurahan
-        return view('kelurahan.index', ['list_kelurahan'=>$list_kelurahan]);
-    // kirim array data ke view kelurahan index menggunakan array assosiative
+        $data_kelurahan = Kelurahan::all();
+// buat turunan model kelurahan
+        return view('kelurahan.index', ['data_kelurahan'=>$data_kelurahan]);
+// kirim array data ke view kelurahan index menggunakan assosiatif array
     }
 
     /**
@@ -31,7 +31,12 @@ class KelurahanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $kelurahan = new Kelurahan();
+        $kelurahan->nama = $request->nama;
+        $kelurahan->kecamatan = $request->kecamatan;
+        $kelurahan->save();
+        return redirect('kelurahan');
+
     }
 
     /**
@@ -63,6 +68,6 @@ class KelurahanController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // kasih perintah hapus data
     }
 }

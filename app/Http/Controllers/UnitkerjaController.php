@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Unitkerja; // panggil file models unitkerja
+use App\Models\Unit_Kerja; //tambahin ini
 use Illuminate\Http\Request;
 
-class UnitkerjaController extends Controller
+class UnitKerjaController extends Controller
 {
     /**
-     * Display a listing of the resource.a
+     * Display a listing of the resource.
      */
     public function index()
     {
-        $list_unitkerja = Unitkerja::all();
-    // buat turunan model unitkerja
-        return view('unitkerja.index', ['list_unitkerja'=>$list_unitkerja]);
-    // kirim array data ke view unitkerja index menggunakan array assosiative
+        $data_unit_kerja = Unit_Kerja::all();
+// buat turunan model Unit_Kerja
+        return view('unit_kerja.index', ['data_unit_kerja'=>$data_unit_kerja]);
+// kirim array data ke view unit_kerja index menggunakan assosiatif array
     }
 
     /**
@@ -31,7 +31,11 @@ class UnitkerjaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $unit_kerja = new Unit_Kerja;
+        $unit_kerja->nama = $request->nama;
+        $unit_kerja->save();
+        return redirect('unit_kerja');
+        
     }
 
     /**
@@ -63,6 +67,6 @@ class UnitkerjaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // kasih perintah hapus data
     }
 }

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pasien;
+use App\Models\Paramedik;
 use App\Models\Periksa; //tambahin ini
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PeriksaController extends Controller
 {
@@ -11,12 +14,14 @@ class PeriksaController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $list_periksa = Periksa::all();
-// buat turunan model periksa
-        return view('periksa.index', ['list_periksa'=>$list_periksa]);
-// kirim array data ke view periksa index menggunakan assosiatif array
-    }
+{
+     $data_periksa = Periksa::with(['pasien', 'paramedik'])->get();
+        $paramedik = Paramedik::all();
+
+        $pasiens = Pasien::all();
+
+        return view('periksa.index', compact('data_periksa','pasien'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -31,7 +36,16 @@ class PeriksaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $periksa = new Periksa();
+        $periksa->tanggal = $request->tanggal;
+        $periksa->berat = $request->berat;
+        $periksa->tinggi = $request->tinggi;
+        $periksa->tensi = $request->tensi;
+        $periksa->keterangan = $request->keterangan;
+        $periksa->pasien_id = $request->pasien_id;
+        $periksa->paramedik_id = $request->paramedik_id;
+        $periksa->save();
+        return redirect('periksa');
     }
 
     /**

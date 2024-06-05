@@ -43,26 +43,47 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Id</th>
                   <th>Nama</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($list_unitkerja as $unitkerja)
+                @foreach ($data_unit_kerja as $unit_kerja)
                 <tr>
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $unitkerja->id }}</td>
-                  <td>{{ $unitkerja->nama }}</td>
+                  <td>{{ $unit_kerja->nama }}</td>
                   <td>
-                    <a href=""><button class="btn-success">Detail</button></a>
-                    <a href=""><button class="btn-warning">Edit</button></a> 
-                    <a href=""><button class="btn-danger">Hapus</button></a></td>
+                    <a href=""><button class="btn btn-success">Detail</button></a>
+                    <a href=""><button class="btn btn-warning">Edit</button></a> 
+                    <a href=""><button class="btn btn-danger">Hapus</button></a></td>
                 </tr>
                 @endforeach
               </tbody>
             </table>
           </div>
+          <div class="btn-group-vertical">
+          <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#inputModal">Tambah</button>
+          <!-- Modal -->
+        <div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="inputModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="inputModalLabel">Tambah Unit Kerja</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                      <form action="{{url('unit_kerja/store')}}" method="POST">
+                          {{csrf_field()}}
+                        <div class="form-group">
+                          <label for="nama">Nama</label>
+                          <input type="text" class="form-control" id="nama" name="nama" required>
+                      </div>
+                      <br>
+                      <br>
+                          <button type="submit" class="btn btn-primary btn-block" style="box-shadow: 0 8px 15px rgba(247, 147, 29, 0.4);">Simpan</button>
+                      </form>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
